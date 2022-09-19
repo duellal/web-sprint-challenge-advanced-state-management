@@ -1,10 +1,10 @@
-import { ADD_SMURF, LOADING, ERROR, FETCH_SMURFS } from "../actions";
-import { v4 as uuidv4 } from 'uuid'
+import { ADD_SMURF, LOADING, FETCH_ERROR, FETCH_SMURFS, ADD_SMURF_START } from "../actions";
 
 export const initialState = {
    smurfs: [],
    loading: true,
-   errorMessage: ''
+   errorMessage: '',
+   addingSmurf: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -13,8 +13,16 @@ const reducer = (state = initialState, action) => {
          return {
             ...state,
             loading: false,
-            error: '',
-            smurfs: action.payload
+            errorMessage: '',
+            smurfs: action.payload,
+            addingSmurf: false
+         }
+      case ADD_SMURF_START:
+         return {
+            ...state,
+            loading: false,
+            errorMessage: '',
+            addingSmurf: true
          }
       case ADD_SMURF:
          return {
@@ -22,7 +30,7 @@ const reducer = (state = initialState, action) => {
             loading: false,
             errorMessage: '',
             smurfs: [...state.smurfs, {
-               id: uuidv4(),
+               id: Date.now(),
                name: action.payload.name,
                position: action.payload.position,
                nickname: action.payload.nickname,
@@ -33,13 +41,15 @@ const reducer = (state = initialState, action) => {
          return {
             ...state,
             loading: true,
-            errorMessage: ''
+            errorMessage: '',
+            addingSmurf: false
          }
-      case ERROR:
+      case FETCH_ERROR:
          return {
             ...state,
             loading: false,
-            errorMessage: action.payload
+            errorMessage: action.payload,
+            addingSmurf: false
          }
       default:
          return state
