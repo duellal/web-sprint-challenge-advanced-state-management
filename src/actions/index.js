@@ -8,11 +8,12 @@ export const FETCH_SMURFS = 'FETCH_SMURFS'
 const fetchSmurfs = () => dispatch => {
    dispatch({ type: LOADING })
 
-   axios.get(`http://localhost:3333/smurfs`)
-      .then(res =>
-         console.log(res))
+   axios.get('http://localhost:3333/smurfs')
+      .then(res => {
+         dispatch({ type: FETCH_SMURFS, payload: res.data })
+      })
       .catch(err => {
-         console.log(err)
+         dispatch({ type: ERROR, payload: err })
       })
 }
 

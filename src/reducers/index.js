@@ -2,14 +2,8 @@ import { ADD_SMURF, LOADING, ERROR, FETCH_SMURFS } from "../actions";
 import { v4 as uuidv4 } from 'uuid'
 
 export const initialState = {
-   smurfs: [{
-      id: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
-      name: 'Poppa Smurf',
-      position: 'Village Leader',
-      nickname: 'Pops',
-      description: 'Papa is the practical village leader and the father figure of 100 or so young Smurfs. He is easily identified by his red Smurf hat, pants, and a shortly-trimmed white beard and moustache.'
-   }],
-   loading: false,
+   smurfs: [],
+   loading: true,
    errorMessage: ''
 }
 
@@ -20,7 +14,7 @@ const reducer = (state = initialState, action) => {
             ...state,
             loading: false,
             error: '',
-            // smurfs:
+            smurfs: action.payload
          }
       case ADD_SMURF:
          return {
@@ -34,19 +28,19 @@ const reducer = (state = initialState, action) => {
                nickname: action.payload.nickname,
                description: action.payload.description
             }]
-         };
+         }
       case LOADING:
          return {
             ...state,
             loading: true,
             errorMessage: ''
-         };
+         }
       case ERROR:
          return {
             ...state,
             loading: false,
             errorMessage: action.payload
-         };
+         }
       default:
          return state
    }
