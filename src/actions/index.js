@@ -30,6 +30,10 @@ export const addSmurf = (smurf) => dispatch => {
       })
 }
 
+export const fetchError = error => {
+   return { type: FETCH_ERROR, payload: error }
+}
+
 export default fetchSmurfs
 
 //Task List:

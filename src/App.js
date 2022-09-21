@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Component, useEffect } from "react";
 import { connect } from "react-redux";
 
 import AddForm from './components/AddForm';
@@ -11,8 +11,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
 const App = (props) => {
+  const { fetchSmurfs } = props
+
   useEffect(() => {
-    props.fetchSmurfs()
+    fetchSmurfs()
   }, [])
 
   return (
